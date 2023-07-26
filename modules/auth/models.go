@@ -1,45 +1,46 @@
 package auth
 
-const (
-	UserModelName       = "User"
-	ProfileModelName    = "Profile"
-	RoleModelName       = "Role"
-	WorkspaceModelName  = "Workspace"
-	PermissionModelName = "Permission"
+import (
+	"gorm.io/gorm"
 )
 
 type UserModel struct {
-	Name          string       `bson:"name" json:"name"`
-	Email         string       `bson:"email" json:"email"`
-	Password      string       `bson:"password" json:"password"`
-	EmailVerified bool         `bson:"emailVerified" json:"emailVerified"`
-	Origin        string       `bson:"origin" json:"origin"`
-	Role          RoleModel    `bson:"role" json:"role,omitempty"`
-	Profile       ProfileModel `bson:"profile" json:"profile,omitempty"`
+	gorm.Model
+	Name          string   `json:"name"`
+	Email         string   `json:"email"`
+	Password      string   `json:"password"`
+	EmailVerified bool     `json:"emailVerified"`
+	Origin        string   `json:"origin"`
+	Roles         []string `json:"roles,omitempty"`
+	Profile       string   `json:"profile,omitempty"`
 }
 
 type ProfileModel struct {
-	Age            int    `bson:"age" json:"age"`
-	Sex            string `bson:"sex" json:"sex"`
-	BloodGroup     string `bson:"bloodGroup" json:"bloodGroup"`
-	ProfilePicture string `bson:"profilePicture" json:"profilePicture"`
-	Designation    string `bson:"designation" json:"designation"`
-	Department     string `bson:"department" json:"department"`
+	gorm.Model
+	Age            int    `json:"age"`
+	Sex            string `json:"sex"`
+	BloodGroup     string `json:"bloodGroup"`
+	ProfilePicture string `json:"profilePicture"`
+	Designation    string `json:"designation"`
+	Department     string `json:"department"`
 }
 
 type RoleModel struct {
-	Name        string         `bson:"name" json:"name"`
-	Description string         `bson:"description" json:"description"`
-	Workspace   WorkspaceModel `bson:"workspace" json:"workspace"`
+	gorm.Model
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Workspace   string `json:"workspace"`
 }
 
 type WorkspaceModel struct {
-	Name        string `bson:"name" json:"name"`
-	Description string `bson:"description" json:"description"`
-	ColorCode   string `bson:"colorCode" json:"colorCode"`
+	gorm.Model
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	ColorCode   string `json:"colorCode"`
 }
 
 type PermissionModel struct {
-	Name       string `bson:"name" json:"name"`
-	Identifier string `bson:"identifier" json:"identifier"`
+	gorm.Model
+	Name       string `json:"name"`
+	Identifier string `json:"identifier"`
 }

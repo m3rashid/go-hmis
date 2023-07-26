@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
@@ -19,9 +20,11 @@ type AppConfig struct {
 }
 
 var FiberApp = fiber.New(fiber.Config{
-	BodyLimit:    1024 * 1024 * 10, // 10 MB
-	ServerHeader: AppName,
-	ETag:         true,
+	BodyLimit:             1024 * 1024 * 10, // 10 MB
+	ServerHeader:          AppName,
+	ETag:                  true,
+	DisableStartupMessage: true,
+	PassLocalsToViews:     true,
 	ErrorHandler: func(ctx *fiber.Ctx, err error) error {
 		/*
 			code := fiber.StatusInternalServerError
@@ -31,6 +34,7 @@ var FiberApp = fiber.New(fiber.Config{
 				code = e.Code
 			}
 		*/
+		fmt.Println(err.Error())
 		return ctx.SendStatus(fiber.StatusInternalServerError)
 	},
 })

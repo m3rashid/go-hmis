@@ -1,13 +1,10 @@
 package auth
 
 import (
-	"fmt"
-	"go-hmis/helpers"
 	"os"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var DbName string = os.Getenv("MONGO_DB_NAME")
@@ -35,17 +32,6 @@ func CreateAccountHandler(c *fiber.Ctx) error {
 	if err := LoginValidator(&user); err != nil {
 		return c.SendStatus(fiber.StatusBadRequest)
 	}
-
-	db := helpers.GetLocal[*mongo.Client](c, "db")
-	res, err := db.Database(DbName).Collection(UserModelName).InsertOne(c.Context(), user)
-
-	if err != nil {
-		fmt.Println(err.Error())
-		fmt.Println(DbName)
-		return c.SendStatus(fiber.StatusInternalServerError)
-	}
-
-	fmt.Println(res)
 
 	return c.SendStatus(200)
 }

@@ -1,10 +1,15 @@
 {
   "cSpell.words": [
     "bson",
+    "dbname",
     "gofiber",
+    "gorm",
     "joho",
+    "Kolkata",
     "Middlewares",
+    "milli",
     "readpref",
-    "requestid"
+    "requestid",
+    "sslmode"
   ]
 }
