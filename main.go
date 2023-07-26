@@ -1,8 +1,9 @@
 package main
 
 import (
-	"hmis/config"
-	"hmis/helpers"
+	"go-hmis/config"
+	"go-hmis/helpers"
+	"go-hmis/modules/auth"
 	"log"
 	"os"
 )
@@ -13,6 +14,8 @@ func main() {
 	app := config.FiberApp
 	config.SetupMiddlewares(app)
 	config.BaseRoutes(app)
+
+	auth.SetupAuthRoutes(app)
 
 	// Setup other routes
 

@@ -1,16 +1,16 @@
 package auth
 
-type User struct {
-	Name          string  `bson:"name" json:"name" validate:"required,min=2,max=100"`
-	Email         string  `bson:"email" json:"email" validate:"required,min=2,max=100"`
-	Password      string  `bson:"password" json:"password" validate:"required,min=6"`
-	EmailVerified bool    `bson:"email_verified" json:"email_verified"`
-	Origin        string  `bson:"origin" json:"origin"`
-	Role          Role    `bson:"role" json:"role"`
-	Profile       Profile `bson:"profile" json:"profile"`
+type UserModel struct {
+	Name          string       `bson:"name" json:"name"`
+	Email         string       `bson:"email" json:"email"`
+	Password      string       `bson:"password" json:"password"`
+	EmailVerified bool         `bson:"emailVerified" json:"emailVerified"`
+	Origin        string       `bson:"origin" json:"origin"`
+	Role          RoleModel    `bson:"role" json:"role,omitempty"`
+	Profile       ProfileModel `bson:"profile" json:"profile,omitempty"`
 }
 
-type Profile struct {
+type ProfileModel struct {
 	Age            int    `bson:"age" json:"age"`
 	Sex            string `bson:"sex" json:"sex"`
 	BloodGroup     string `bson:"bloodGroup" json:"bloodGroup"`
@@ -19,19 +19,19 @@ type Profile struct {
 	Department     string `bson:"department" json:"department"`
 }
 
-type Role struct {
-	Name        string    `bson:"name" json:"name" validate:"required"`
-	Description string    `bson:"description" json:"description"`
-	Workspace   Workspace `bson:"workspace" json:"workspace" validate:"required"`
+type RoleModel struct {
+	Name        string         `bson:"name" json:"name"`
+	Description string         `bson:"description" json:"description"`
+	Workspace   WorkspaceModel `bson:"workspace" json:"workspace"`
 }
 
-type Workspace struct {
-	Name        string `bson:"name" json:"name" validate:"required"`
-	Description string `bson:"description" json:"description" validate:"required"`
-	ColorCode   string `bson:"color_code" json:"color_code" validate:"required"`
+type WorkspaceModel struct {
+	Name        string `bson:"name" json:"name"`
+	Description string `bson:"description" json:"description"`
+	ColorCode   string `bson:"colorCode" json:"colorCode"`
 }
 
-type Permission struct {
-	Name       string `bson:"name" json:"name" validate:"required"`
-	Identifier string `bson:"identifier" json:"identifier" validate:"required"`
+type PermissionModel struct {
+	Name       string `bson:"name" json:"name"`
+	Identifier string `bson:"identifier" json:"identifier"`
 }

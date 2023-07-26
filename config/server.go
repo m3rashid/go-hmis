@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	AppName     string = "HMIS"
+	AppName     string = "go-hmis"
 	AppFullName string = "Hospital Management and Informatics System"
 )
 
