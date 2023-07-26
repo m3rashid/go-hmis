@@ -20,14 +20,6 @@ import (
 var limiterStorage = redisStorage.New()
 
 func SetupMiddlewares(app *fiber.App) {
-
-	client, ctx, cancel, err := Connect()
-	if err != nil {
-		panic(err)
-	}
-	defer Close(client, ctx, cancel)
-	Ping(client, ctx)
-
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     helpers.Ternary(os.Getenv("SERVER_ENV") == "development", "*", "*"),
 		AllowHeaders:     "Origin, Content-Type, Accept",
@@ -52,12 +44,6 @@ func SetupMiddlewares(app *fiber.App) {
 		EnableStackTrace:  os.Getenv("SERVER_ENV") == "development",
 		StackTraceHandler: func(c *fiber.Ctx, e interface{}) {},
 	}))
-
-	app.Use(func(c *fiber.Ctx) error {
-		helpers.SetLocal(c, "db", client) // add db connection to context
-		helpers.SetLocal(c, "ctx", ctx)   // add context to context
-		return c.Next()
-	})
 }
 
 var ErrorTimeOut = errors.New("server taking too long to respond")
