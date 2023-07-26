@@ -21,7 +21,7 @@ var limiterStorage = redisStorage.New()
 
 func SetupMiddlewares(app *fiber.App) {
 
-	client, ctx, cancel, err := Connect("mongodb://localhost:27017")
+	client, ctx, cancel, err := Connect()
 	if err != nil {
 		panic(err)
 	}

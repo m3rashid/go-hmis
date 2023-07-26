@@ -3,6 +3,7 @@ package config
 import (
 	"context"
 	"fmt"
+	"os"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -21,8 +22,13 @@ func Close(client *mongo.Client, ctx context.Context,
 	}()
 }
 
-func Connect(uri string) (*mongo.Client, context.Context,
+func Connect() (*mongo.Client, context.Context,
 	context.CancelFunc, error) {
+	uri := os.Getenv("MONGO_URI")
+	if uri == "" {
+		fmt.Println("Mongo URI is not set")
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(),
 		30*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))

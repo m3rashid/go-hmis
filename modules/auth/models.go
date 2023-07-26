@@ -1,5 +1,13 @@
 package auth
 
+const (
+	UserModelName       = "User"
+	ProfileModelName    = "Profile"
+	RoleModelName       = "Role"
+	WorkspaceModelName  = "Workspace"
+	PermissionModelName = "Permission"
+)
+
 type UserModel struct {
 	Name          string       `bson:"name" json:"name"`
 	Email         string       `bson:"email" json:"email"`
