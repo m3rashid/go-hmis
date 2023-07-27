@@ -8,6 +8,7 @@
     "BPOS",
     "bson",
     "dbname",
+    "DBTX",
     "gofiber",
     "gorm",
     "joho",
