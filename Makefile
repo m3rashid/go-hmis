@@ -7,3 +7,9 @@ run:
 prod:
 	go build -o bin/hmis main.go
 	./bin/hmis
+
+generate:
+	sqlc generate
+
+lint:
+	sqlc vet

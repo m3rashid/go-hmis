@@ -24,14 +24,6 @@ func LoginHandler(c *fiber.Ctx) error {
 }
 
 func CreateAccountHandler(c *fiber.Ctx) error {
-	user := UserModel{}
-	if err := c.BodyParser(&user); err != nil {
-		return c.SendStatus(fiber.StatusBadRequest)
-	}
-
-	if err := LoginValidator(&user); err != nil {
-		return c.SendStatus(fiber.StatusBadRequest)
-	}
 
 	return c.SendStatus(200)
 }

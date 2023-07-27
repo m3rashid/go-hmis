@@ -1,0 +1,61 @@
+CREATE TABLE auth (
+  id   BIGSERIAL PRIMARY KEY,
+  name VARCHAR(255)      NOT NULL,
+  email VARCHAR(255)		 NOT NULL UNIQUE,
+	password VARCHAR(255)  NOT NULL,
+	"emailVerified" BOOLEAN NOT NULL DEFAULT FALSE,
+	profile BIGSERIAL REFERENCES profile(id),
+	roles BIGSERIAL[] NOT NULL DEFAULT '{}' REFERENCES role(id),
+	deleted BOOLEAN NOT NULL DEFAULT FALSE,
+	"createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	"updatedAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	"createdBy" BIGSERIAL REFERENCES auth(id),
+	"updatedBy" BIGSERIAL REFERENCES auth(id)
+);
+
+CREATE TYPE "BloodGroup" AS ENUM ('A-POS', 'A-NEG', 'B-POS', 'B-NEG', 'AB-POS', 'AB-NEG', 'O-POS', 'O-NEG');
+
+CREATE TYPE "Sex" AS ENUM ('M', 'F', 'O');
+
+CREATE TABLE profile (
+	id BIGSERIAL PRIMARY KEY,
+	age INT,
+	sex Sex,
+	"bloodGroup" BloodGroup,
+	weight INT,
+	height NUMERIC(4, 2),
+	"authId" BIGSERIAL REFERENCES auth(id),
+	"profilePicture" VARCHAR(255),
+	designation VARCHAR(255),
+	department VARCHAR(255),
+	deleted BOOLEAN NOT NULL DEFAULT FALSE,
+	"createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	"updatedAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	"createdBy" BIGSERIAL REFERENCES auth(id),
+	"updatedBy" BIGSERIAL REFERENCES auth(id)
+);
+
+CREATE TABLE workspace (
+	id BIGSERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL UNIQUE,
+	description TEXT,
+	"colorCode" VARCHAR(10) NOT NULL,
+	deleted BOOLEAN NOT NULL DEFAULT FALSE,
+	"createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	"updatedAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	"createdBy" BIGSERIAL REFERENCES auth(id),
+	"updatedBy" BIGSERIAL REFERENCES auth(id)
+);
+
+CREATE TABLE role (
+	id BIGSERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL UNIQUE,
+	description TEXT,
+	workspace BIGSERIAL REFERENCES workspace(id),
+	permissions JSON NOT NULL DEFAULT '{}',
+	deleted BOOLEAN NOT NULL DEFAULT FALSE,
+	"createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	"updatedAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	"createdBy" BIGSERIAL REFERENCES auth(id),
+	"updatedBy" BIGSERIAL REFERENCES auth(id)
+);

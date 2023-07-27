@@ -1,5 +1,11 @@
 {
   "cSpell.words": [
+    "ABNEG",
+    "ABPOS",
+    "ANEG",
+    "APOS",
+    "BNEG",
+    "BPOS",
     "bson",
     "dbname",
     "gofiber",
@@ -8,8 +14,11 @@
     "Kolkata",
     "Middlewares",
     "milli",
+    "ONEG",
+    "OPOS",
     "readpref",
     "requestid",
+    "sqlc",
     "sslmode"
   ]
 }
